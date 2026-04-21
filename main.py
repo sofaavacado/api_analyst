@@ -225,7 +225,11 @@ async def scrape_trudvsem(
     seen = set()
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(
+            channel="chromium",
+            headless=True,
+            args=["--no-sandbox", "--disable-dev-shm-usage"]
+        )
         context = await browser.new_context(
             locale="ru-RU",
             viewport={"width": 1440, "height": 1200},
